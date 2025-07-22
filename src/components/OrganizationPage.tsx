@@ -183,8 +183,8 @@ export function OrganizationPage() {
         </Table>
       </Card>
 
-      {/* Pagination at Bottom */}
-      <div className="flex justify-between items-center bg-green-600 text-white p-4 rounded mt-4">
+      {/* Fixed Footer */}
+      <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center bg-green-600 text-white p-4 z-50">
         <div className="flex items-center gap-2">
           <span>Rows per page:</span>
           <select className="bg-white text-black px-2 py-1 rounded">

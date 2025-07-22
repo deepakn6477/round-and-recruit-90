@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MapPin, Building, Clock, DollarSign, Users, Eye, Edit, BarChart3 } from "lucide-react";
+import { MapPin, Building, Clock, DollarSign, Users, Eye, Edit, BarChart3, Filter, X, Search } from "lucide-react";
 import { JobData } from "./JobManagement";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +26,7 @@ const mockResumes = [
     mobile: "+91 6370892921",
     status: "HIRED",
     location: "Chennai",
-    experience: "5-7 years",
+    experience: "5-8 years",
     score: 85,
     matchSkills: "Azure, Logic Apps, JavaScript",
     resumeDetails: "Senior Developer with Azure expertise"
@@ -35,9 +36,9 @@ const mockResumes = [
     name: "Saguntaj Manj",
     email: "manju2041599@gmail.com", 
     mobile: "+91 7739635241",
-    status: "HIRED", 
+    status: "OFFERED", 
     location: "Mumbai",
-    experience: "3-5 years",
+    experience: "2-5 years",
     score: 78,
     matchSkills: "React, Node.js, MongoDB",
     resumeDetails: "Full Stack Developer"
@@ -47,12 +48,36 @@ const mockResumes = [
     name: "GOWTHAMI A",
     email: "gowthami456@gmail.com",
     mobile: "+91 9025856241",
-    status: "HIRED",
-    location: "Bangalore",
-    experience: "2-4 years",
+    status: "INTERVIEW STAGE",
+    location: "Bengaluru",
+    experience: "2-5 years",
     score: 92,
     matchSkills: "Python, Django, PostgreSQL",
     resumeDetails: "Backend Developer with Python expertise"
+  },
+  {
+    id: "RSM118821",
+    name: "Rajesh Kumar",
+    email: "rajesh.k@gmail.com",
+    mobile: "+91 9876543210",
+    status: "REJECTED",
+    location: "Delhi",
+    experience: "0-2 years",
+    score: 45,
+    matchSkills: "Java, Spring Boot, MySQL",
+    resumeDetails: "Junior Java Developer"
+  },
+  {
+    id: "RSM118822",
+    name: "Priya Sharma",
+    email: "priya.sharma@gmail.com",
+    mobile: "+91 8765432109",
+    status: "ON HOLD",
+    location: "Hyderabad",
+    experience: "8+ years",
+    score: 88,
+    matchSkills: "Angular, TypeScript, Node.js",
+    resumeDetails: "Senior Frontend Architect"
   }
 ];
 
@@ -66,6 +91,88 @@ const statusColors = {
 
 export function JobDetails({ jobData, onUpdateJobData }: JobDetailsProps) {
   const navigate = useNavigate();
+  
+  // Filter states
+  const [filters, setFilters] = useState({
+    status: [] as string[],
+    score: [] as string[],
+    matchSkills: "",
+    experience: [] as string[],
+    location: [] as string[]
+  });
+  
+  // Available filter options
+  const statusOptions = ["HIRED", "OFFERED", "INTERVIEW STAGE", "REJECTED", "ON HOLD"];
+  const scoreRanges = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"];
+  const experienceOptions = ["0-2 years", "2-5 years", "5-8 years", "8+ years"];
+  const locationOptions = ["Bengaluru", "Mumbai", "Chennai", "Delhi", "Hyderabad"];
+  
+  // Filter the resumes based on active filters
+  const filteredResumes = mockResumes.filter(resume => {
+    // Status filter
+    if (filters.status.length > 0 && !filters.status.includes(resume.status)) {
+      return false;
+    }
+    
+    // Score filter
+    if (filters.score.length > 0) {
+      const matchesScore = filters.score.some(range => {
+        const [min, max] = range.split('-').map(Number);
+        return resume.score >= min && resume.score <= max;
+      });
+      if (!matchesScore) return false;
+    }
+    
+    // Match skills filter (text search)
+    if (filters.matchSkills && !resume.matchSkills.toLowerCase().includes(filters.matchSkills.toLowerCase())) {
+      return false;
+    }
+    
+    // Experience filter
+    if (filters.experience.length > 0 && !filters.experience.includes(resume.experience)) {
+      return false;
+    }
+    
+    // Location filter
+    if (filters.location.length > 0 && !filters.location.includes(resume.location)) {
+      return false;
+    }
+    
+    return true;
+  });
+  
+  const updateFilter = (filterType: keyof typeof filters, value: string | string[]) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
+  };
+  
+  const toggleMultiSelectFilter = (filterType: 'status' | 'score' | 'experience' | 'location', value: string) => {
+    setFilters(prev => {
+      const currentValues = prev[filterType] as string[];
+      const newValues = currentValues.includes(value) 
+        ? currentValues.filter(v => v !== value)
+        : [...currentValues, value];
+      return {
+        ...prev,
+        [filterType]: newValues
+      };
+    });
+  };
+  
+  const clearAllFilters = () => {
+    setFilters({
+      status: [],
+      score: [],
+      matchSkills: "",
+      experience: [],
+      location: []
+    });
+  };
+  
+  const hasActiveFilters = filters.status.length > 0 || filters.score.length > 0 || 
+    filters.matchSkills !== "" || filters.experience.length > 0 || filters.location.length > 0;
   
   const handleInputChange = (field: keyof JobData, value: any) => {
     onUpdateJobData({
@@ -386,6 +493,172 @@ export function JobDetails({ jobData, onUpdateJobData }: JobDetailsProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          {/* Filter Section */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Filter className="h-5 w-5" />
+                Filters
+                {hasActiveFilters && (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={clearAllFilters}
+                    className="ml-auto"
+                  >
+                    <X className="h-4 w-4 mr-1" />
+                    Clear All
+                  </Button>
+                )}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                {/* Status Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Status</Label>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {statusOptions.map(status => (
+                      <div key={status} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`status-${status}`}
+                          checked={filters.status.includes(status)}
+                          onCheckedChange={() => toggleMultiSelectFilter('status', status)}
+                        />
+                        <Label htmlFor={`status-${status}`} className="text-sm">
+                          {status}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Score Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Score Range</Label>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {scoreRanges.map(range => (
+                      <div key={range} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`score-${range}`}
+                          checked={filters.score.includes(range)}
+                          onCheckedChange={() => toggleMultiSelectFilter('score', range)}
+                        />
+                        <Label htmlFor={`score-${range}`} className="text-sm">
+                          {range}%
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Match Skills Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Match Skills</Label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Input
+                      placeholder="Search skills..."
+                      value={filters.matchSkills}
+                      onChange={(e) => updateFilter('matchSkills', e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                </div>
+
+                {/* Experience Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Experience</Label>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {experienceOptions.map(exp => (
+                      <div key={exp} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`exp-${exp}`}
+                          checked={filters.experience.includes(exp)}
+                          onCheckedChange={() => toggleMultiSelectFilter('experience', exp)}
+                        />
+                        <Label htmlFor={`exp-${exp}`} className="text-sm">
+                          {exp}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Location Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Location</Label>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {locationOptions.map(location => (
+                      <div key={location} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`loc-${location}`}
+                          checked={filters.location.includes(location)}
+                          onCheckedChange={() => toggleMultiSelectFilter('location', location)}
+                        />
+                        <Label htmlFor={`loc-${location}`} className="text-sm">
+                          {location}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Active Filter Tags */}
+              {hasActiveFilters && (
+                <div className="mt-4 pt-4 border-t">
+                  <div className="flex flex-wrap gap-2">
+                    {filters.status.map(status => (
+                      <Badge key={status} variant="secondary" className="flex items-center gap-1">
+                        Status: {status}
+                        <X 
+                          className="h-3 w-3 cursor-pointer" 
+                          onClick={() => toggleMultiSelectFilter('status', status)}
+                        />
+                      </Badge>
+                    ))}
+                    {filters.score.map(score => (
+                      <Badge key={score} variant="secondary" className="flex items-center gap-1">
+                        Score: {score}%
+                        <X 
+                          className="h-3 w-3 cursor-pointer" 
+                          onClick={() => toggleMultiSelectFilter('score', score)}
+                        />
+                      </Badge>
+                    ))}
+                    {filters.matchSkills && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        Skills: {filters.matchSkills}
+                        <X 
+                          className="h-3 w-3 cursor-pointer" 
+                          onClick={() => updateFilter('matchSkills', "")}
+                        />
+                      </Badge>
+                    )}
+                    {filters.experience.map(exp => (
+                      <Badge key={exp} variant="secondary" className="flex items-center gap-1">
+                        Experience: {exp}
+                        <X 
+                          className="h-3 w-3 cursor-pointer" 
+                          onClick={() => toggleMultiSelectFilter('experience', exp)}
+                        />
+                      </Badge>
+                    ))}
+                    {filters.location.map(loc => (
+                      <Badge key={loc} variant="secondary" className="flex items-center gap-1">
+                        Location: {loc}
+                        <X 
+                          className="h-3 w-3 cursor-pointer" 
+                          onClick={() => toggleMultiSelectFilter('location', loc)}
+                        />
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
           <div className="border rounded-lg overflow-hidden">
             <Table>
               <TableHeader>
@@ -404,7 +677,7 @@ export function JobDetails({ jobData, onUpdateJobData }: JobDetailsProps) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {mockResumes.map((resume, index) => (
+                {filteredResumes.map((resume, index) => (
                   <TableRow key={resume.id} className="cursor-pointer hover:bg-muted/50">
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
