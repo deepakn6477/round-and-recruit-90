@@ -223,6 +223,50 @@ export const CandidateDetails = () => {
               </div>
             </CardContent>
           </Card>
+          <Card>
+                  <CardHeader>
+                    <CardTitle>Comments & Status</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Textarea
+                      placeholder="Enter your comments here..."
+                      className="min-h-[120px]"
+                    />
+                    
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="hired">Hired</SelectItem>
+                        <SelectItem value="offered">Offered</SelectItem>
+                        <SelectItem value="interview">Interview Stage</SelectItem>
+                        <SelectItem value="rejected">Rejected</SelectItem>
+                        <SelectItem value="hold">On Hold</SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <div className="space-y-2 text-sm border-t pt-4">
+                      <div className="flex justify-between">
+                        <span>Is Internal Employee:</span>
+                        <span>No</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Is Exit:</span>
+                        <span>No</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Is Talent:</span>
+                        <span>No</span>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 pt-4">
+                      <Button variant="outline" className="flex-1">CANCEL</Button>
+                      <Button className="flex-1">SUBMIT</Button>
+                    </div>
+                  </CardContent>
+                </Card>
 
         </div>
 
@@ -353,50 +397,7 @@ export const CandidateDetails = () => {
                   </CardContent>
                 </Card>
                 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Comments & Status</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <Textarea
-                      placeholder="Enter your comments here..."
-                      className="min-h-[120px]"
-                    />
-                    
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="hired">Hired</SelectItem>
-                        <SelectItem value="offered">Offered</SelectItem>
-                        <SelectItem value="interview">Interview Stage</SelectItem>
-                        <SelectItem value="rejected">Rejected</SelectItem>
-                        <SelectItem value="hold">On Hold</SelectItem>
-                      </SelectContent>
-                    </Select>
-
-                    <div className="space-y-2 text-sm border-t pt-4">
-                      <div className="flex justify-between">
-                        <span>Is Internal Employee:</span>
-                        <span>No</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Is Exit:</span>
-                        <span>No</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Is Talent:</span>
-                        <span>No</span>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 pt-4">
-                      <Button variant="outline" className="flex-1">CANCEL</Button>
-                      <Button className="flex-1">SUBMIT</Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                
               </div>
             </TabsContent>
 

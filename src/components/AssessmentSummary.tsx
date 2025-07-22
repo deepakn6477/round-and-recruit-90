@@ -100,68 +100,8 @@ export function AssessmentSummary({ jobId, jobTitle, onBack }: AssessmentSummary
   const selectedJob = mockJobs.find(job => job.id === selectedJobId);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      {/* Left Column - Only Candidate Details */}
-      <div className="lg:col-span-1">
-        <Card className="bg-gradient-to-b from-green-50 to-green-100 border-green-200">
-          <CardContent className="p-6">
-            <div className="text-center mb-6">
-              <div className="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <User className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-green-800">{mockCandidateData.name}</h3>
-              <p className="text-green-600">{mockCandidateData.designation}</p>
-              <Badge className="mt-2 bg-blue-100 text-blue-800">In Progress</Badge>
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm font-medium text-green-800">Overall Fitment</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <Progress value={mockCandidateData.overallFitment} className="flex-1" />
-                  <span className="text-2xl font-bold text-green-600">{mockCandidateData.overallFitment}%</span>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-sm font-medium text-green-800">Rounds Progress</p>
-                <p className="text-lg font-semibold text-green-600">{mockCandidateData.roundsProgress} rounds</p>
-              </div>
-
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-green-700">📧 Email:</span>
-                  <span className="text-green-600">{mockCandidateData.email}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-700">📱 Phone:</span>
-                  <span className="text-green-600">{mockCandidateData.mobile}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-700">📍 Location:</span>
-                  <span className="text-green-600">{mockCandidateData.location}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-700">🎂 DOB:</span>
-                  <span className="text-green-600">{mockCandidateData.dob}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-700">💼 Experience:</span>
-                  <span className="text-green-600">{mockCandidateData.experience}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-700">🏢 Company:</span>
-                  <span className="text-green-600">{mockCandidateData.currentCompany}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-700">📋 Applied:</span>
-                  <span className="text-green-600">2024-01-15</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
 
       {/* Right Panel - Assessment History and Performance Summary */}
       <div className="lg:col-span-3 space-y-6">
@@ -304,51 +244,7 @@ export function AssessmentSummary({ jobId, jobTitle, onBack }: AssessmentSummary
           </CardContent>
         </Card>
 
-        {/* Comments & Status */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Comments & Status</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Textarea
-              placeholder="Enter your comments here..."
-              className="min-h-[120px]"
-            />
-            
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="hired">Hired</SelectItem>
-                <SelectItem value="offered">Offered</SelectItem>
-                <SelectItem value="interview">Interview Stage</SelectItem>
-                <SelectItem value="rejected">Rejected</SelectItem>
-                <SelectItem value="hold">On Hold</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <div className="space-y-2 text-sm border-t pt-4">
-              <div className="flex justify-between">
-                <span>Is Internal Employee:</span>
-                <span>No</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Is Exit:</span>
-                <span>No</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Is Talent:</span>
-                <span>No</span>
-              </div>
-            </div>
-
-            <div className="flex gap-2 pt-4">
-              <Button variant="outline" className="flex-1">CANCEL</Button>
-              <Button className="flex-1">SUBMIT</Button>
-            </div>
-          </CardContent>
-        </Card>
+        
 
         {/* Overall Performance Summary */}
         <Card>

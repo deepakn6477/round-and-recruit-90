@@ -70,157 +70,17 @@ export function ScheduleInterviewTab() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Left Panel - Candidate Details + Quick Actions + Next Interview + Comments */}
       <div className="lg:col-span-1 space-y-6">
-        {/* Candidate Details */}
-        <Card className="bg-green-50 border-green-200">
-          <CardContent className="p-4 text-center">
-            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Users className="h-8 w-8 text-white" />
-            </div>
-            <h3 className="font-semibold">Sivasankaran S</h3>
-            <p className="text-sm text-muted-foreground">Senior Developer</p>
-            <Badge className="mt-2 bg-blue-100 text-blue-800">In Progress</Badge>
-            
-            <div className="mt-4 space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span>Overall Fitment</span>
-                <span className="font-medium text-green-600">85%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-green-500 h-2 rounded-full" style={{ width: '85%' }}></div>
-              </div>
-              
-              <div className="flex justify-between">
-                <span>Rounds Progress</span>
-                <span className="font-medium">3/4 rounds</span>
-              </div>
-              
-              <div className="space-y-1 text-left border-t pt-2 mt-3">
-                <div className="flex justify-between">
-                  <span>📧 Email:</span>
-                  <span>sivasankaran773@gmail.com</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>📱 Phone:</span>
-                  <span>+91 6370839917</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>📍 Location:</span>
-                  <span>Chennai</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>🎂 DOB:</span>
-                  <span>15/08/1995</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>💼 Experience:</span>
-                  <span>5 years</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>🏢 Company:</span>
-                  <span>Tech Solutions</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>📅 Applied:</span>
-                  <span>2024-01-15</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
         
-        {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <p className="text-sm text-muted-foreground">
-              Manage candidate status and schedule next steps
-            </p>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Button className="w-full bg-green-600 hover:bg-green-700">
-              Schedule Next Round
-            </Button>
-            <Button variant="outline" className="w-full">
-              Send Email
-            </Button>
-            <Button variant="outline" className="w-full">
-              Update Status
-            </Button>
-            <Button variant="outline" className="w-full">
-              Mark as Selected
-            </Button>
-          </CardContent>
-        </Card>
+        
+        
 
-        {/* Next Interview */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Next Interview</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2 text-green-600">
-              <Calendar className="h-4 w-4" />
-              <span className="font-medium">HR Interview</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4" />
-              <span>Jan 25, 2024 - 2:00 PM</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4" />
-              <span>Emily Davis</span>
-            </div>
-            <Button className="w-full bg-green-600 hover:bg-green-700">
-              Reschedule
-            </Button>
-          </CardContent>
-        </Card>
+        
 
-        {/* Comments & Status */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Comments & Status</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <textarea
-              placeholder="Enter your comments here..."
-              className="w-full min-h-[120px] p-3 border rounded-md text-sm resize-none"
-            />
-            
-            <select className="w-full p-3 border rounded-md text-sm">
-              <option>Select Status</option>
-              <option>Hired</option>
-              <option>Offered</option>
-              <option>Interview Stage</option>
-              <option>Rejected</option>
-              <option>On Hold</option>
-            </select>
-
-            <div className="space-y-2 text-sm border-t pt-4">
-              <div className="flex justify-between">
-                <span>Is Internal Employee:</span>
-                <span>No</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Is Exit:</span>
-                <span>No</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Is Talent:</span>
-                <span>No</span>
-              </div>
-            </div>
-
-            <div className="flex gap-2 pt-4">
-              <Button variant="outline" className="flex-1">CANCEL</Button>
-              <Button className="flex-1">SUBMIT</Button>
-            </div>
-          </CardContent>
-        </Card>
+        
       </div>
 
       {/* Right Panel - Interview Scheduling */}
-      <div className="lg:col-span-2 space-y-6">
+      <div className="lg:col-span-3 space-y-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -302,6 +162,30 @@ export function ScheduleInterviewTab() {
                 </CardContent>
               </Card>
             ))}
+          </CardContent>
+        </Card>
+
+        {/* Quick Actions */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <p className="text-sm text-muted-foreground">
+              Manage candidate status and schedule next steps
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Button className="w-full ">
+              Schedule Next Round
+            </Button>
+            <Button variant="outline" className="w-full">
+              Send Email
+            </Button>
+            <Button variant="outline" className="w-full">
+              Update Status
+            </Button>
+            <Button variant="outline" className="w-full">
+              Mark as Selected
+            </Button>
           </CardContent>
         </Card>
 
