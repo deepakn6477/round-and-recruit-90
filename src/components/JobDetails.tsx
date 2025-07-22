@@ -4,11 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MapPin, Building, Clock, DollarSign, Users, Eye, Edit, BarChart3, Filter, X, Search } from "lucide-react";
+import { MapPin, Building, Clock, DollarSign, Users, Eye, Edit, BarChart3, Filter, X, Search, ChevronDown } from "lucide-react";
 import { JobData } from "./JobManagement";
 import { useNavigate } from "react-router-dom";
 
@@ -517,39 +518,73 @@ export function JobDetails({ jobData, onUpdateJobData }: JobDetailsProps) {
                 {/* Status Filter */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Status</Label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
-                    {statusOptions.map(status => (
-                      <div key={status} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`status-${status}`}
-                          checked={filters.status.includes(status)}
-                          onCheckedChange={() => toggleMultiSelectFilter('status', status)}
-                        />
-                        <Label htmlFor={`status-${status}`} className="text-sm">
-                          {status}
-                        </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between text-left font-normal"
+                      >
+                        {filters.status.length > 0 ? (
+                          <span>{filters.status.length} selected</span>
+                        ) : (
+                          <span className="text-muted-foreground">Select status</span>
+                        )}
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <div className="p-4 space-y-2">
+                        {statusOptions.map(status => (
+                          <div key={status} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`status-${status}`}
+                              checked={filters.status.includes(status)}
+                              onCheckedChange={() => toggleMultiSelectFilter('status', status)}
+                            />
+                            <Label htmlFor={`status-${status}`} className="text-sm cursor-pointer">
+                              {status}
+                            </Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 {/* Score Filter */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Score Range</Label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
-                    {scoreRanges.map(range => (
-                      <div key={range} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`score-${range}`}
-                          checked={filters.score.includes(range)}
-                          onCheckedChange={() => toggleMultiSelectFilter('score', range)}
-                        />
-                        <Label htmlFor={`score-${range}`} className="text-sm">
-                          {range}%
-                        </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between text-left font-normal"
+                      >
+                        {filters.score.length > 0 ? (
+                          <span>{filters.score.length} selected</span>
+                        ) : (
+                          <span className="text-muted-foreground">Select score range</span>
+                        )}
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <div className="p-4 space-y-2 max-h-48 overflow-y-auto">
+                        {scoreRanges.map(range => (
+                          <div key={range} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`score-${range}`}
+                              checked={filters.score.includes(range)}
+                              onCheckedChange={() => toggleMultiSelectFilter('score', range)}
+                            />
+                            <Label htmlFor={`score-${range}`} className="text-sm cursor-pointer">
+                              {range}%
+                            </Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 {/* Match Skills Filter */}
@@ -569,39 +604,73 @@ export function JobDetails({ jobData, onUpdateJobData }: JobDetailsProps) {
                 {/* Experience Filter */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Experience</Label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
-                    {experienceOptions.map(exp => (
-                      <div key={exp} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`exp-${exp}`}
-                          checked={filters.experience.includes(exp)}
-                          onCheckedChange={() => toggleMultiSelectFilter('experience', exp)}
-                        />
-                        <Label htmlFor={`exp-${exp}`} className="text-sm">
-                          {exp}
-                        </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between text-left font-normal"
+                      >
+                        {filters.experience.length > 0 ? (
+                          <span>{filters.experience.length} selected</span>
+                        ) : (
+                          <span className="text-muted-foreground">Select experience</span>
+                        )}
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <div className="p-4 space-y-2">
+                        {experienceOptions.map(exp => (
+                          <div key={exp} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`exp-${exp}`}
+                              checked={filters.experience.includes(exp)}
+                              onCheckedChange={() => toggleMultiSelectFilter('experience', exp)}
+                            />
+                            <Label htmlFor={`exp-${exp}`} className="text-sm cursor-pointer">
+                              {exp}
+                            </Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 {/* Location Filter */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Location</Label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
-                    {locationOptions.map(location => (
-                      <div key={location} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`loc-${location}`}
-                          checked={filters.location.includes(location)}
-                          onCheckedChange={() => toggleMultiSelectFilter('location', location)}
-                        />
-                        <Label htmlFor={`loc-${location}`} className="text-sm">
-                          {location}
-                        </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between text-left font-normal"
+                      >
+                        {filters.location.length > 0 ? (
+                          <span>{filters.location.length} selected</span>
+                        ) : (
+                          <span className="text-muted-foreground">Select location</span>
+                        )}
+                        <ChevronDown className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <div className="p-4 space-y-2">
+                        {locationOptions.map(location => (
+                          <div key={location} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`loc-${location}`}
+                              checked={filters.location.includes(location)}
+                              onCheckedChange={() => toggleMultiSelectFilter('location', location)}
+                            />
+                            <Label htmlFor={`loc-${location}`} className="text-sm cursor-pointer">
+                              {location}
+                            </Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
 
