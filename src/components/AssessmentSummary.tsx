@@ -207,40 +207,7 @@ export function AssessmentSummary({ jobId, jobTitle, onBack }: AssessmentSummary
               </div>
             </div>
 
-            {/* Play Recording Section */}
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <Play className="h-4 w-4 text-blue-600" />
-                <span className="font-medium">Play Recording</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Interview recording available</p>
-            </div>
 
-            {/* Technical Round 2 Details */}
-            <Card className="bg-white border">
-              <CardContent className="p-4">
-                <div className="mb-4">
-                  <h4 className="font-semibold text-lg mb-2">Technical Round 2</h4>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                    <span>Interviewer: Priya Patel</span>
-                    <span>Date: 2024-01-20</span>
-                  </div>
-                  <Badge className="bg-green-100 text-green-800">Completed</Badge>
-                </div>
-
-                <div className="mb-4">
-                  <h5 className="font-medium mb-2">Interviewer Remarks:</h5>
-                  <p className="text-sm bg-gray-100 p-3 rounded-md">
-                    Excellent system design skills. Demonstrated scalability concepts well.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <FileText className="h-4 w-4" />
-                  <span className="text-sm">No recording available</span>
-                </div>
-              </CardContent>
-            </Card>
           </CardContent>
         </Card>
 
