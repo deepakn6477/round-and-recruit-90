@@ -184,18 +184,16 @@ export function OrganizationPage() {
       </Card>
 
       {/* Fixed Footer */}
-      <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center bg-green-600 text-white p-4 z-50">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span>Rows per page:</span>
-            <select className="bg-white text-black px-2 py-1 rounded">
-              <option>10</option>
-              <option>25</option>
-              <option>50</option>
-            </select>
-          </div>
-          <span>1 - {mockOrganizations.length} of {mockOrganizations.length}</span>
+      <div className="fixed bottom-0 left-60 right-0 flex justify-between items-center bg-green-600 text-white p-4 z-50">
+        <div className="flex items-center gap-2">
+          <span>Rows per page:</span>
+          <select className="bg-white text-black px-2 py-1 rounded">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+          </select>
         </div>
+        <span>1 - {mockOrganizations.length} of {mockOrganizations.length}</span>
       </div>
     </div>
   );
